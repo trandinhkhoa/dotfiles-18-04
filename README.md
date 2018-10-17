@@ -15,7 +15,7 @@ sudo apt-get install curl git
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-###[zsh plugin]zsh-syntax-highlight 
+### [zsh plugin]zsh-syntax-highlight 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 ### snazzy theme for zsh 
@@ -26,9 +26,12 @@ chmod +x hyper-snazzy.sh && ./hyper-snazzy.sh
 ```
 
 ### Switch Capslock <-> Esc 
-Install dconf-tools
-org >> gnome >> desktop >> input-sources
+Install dconf-tools. Go to
+`dconf-tools` >> `org` >> `gnome` >> `desktop` >> `input-sources`
+Enter
+```
 ['caps:swapescape']
+```
 
 ### Install neovim 
 ```
