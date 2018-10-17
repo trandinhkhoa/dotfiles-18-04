@@ -5,7 +5,7 @@ sudo apt-get install cmake   #for YouCompleteMe
 sudo apt-get install python-dev python3-dev #for YouCompleteMe
 ```
 
-###Install zsh###
+### Install zsh
 ```
 sudo apt-get install zsh
 chsh -s $(which zsh)
@@ -15,22 +15,22 @@ sudo apt-get install curl git
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-###[zsh plugin]zsh-syntax-highlight ###
+###[zsh plugin]zsh-syntax-highlight 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-### snazzy theme for zsh ###
+### snazzy theme for zsh 
 ```
 git clone https://github.com/tobark/hyper-snazzy-gnome-terminal.git
 cd hyper-snazzy-gnome-terminal
 chmod +x hyper-snazzy.sh && ./hyper-snazzy.sh
 ```
 
-### Switch Capslock <-> Esc ###
+### Switch Capslock <-> Esc 
 Install dconf-tools
 org >> gnome >> desktop >> input-sources
 ['caps:swapescape']
 
-### Install neovim ###
+### Install neovim 
 ```
 sudo apt-add-repository ppa:neovim-ppa/stable
 sudo apt-get update
@@ -44,13 +44,13 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.g
     source ~/.vimrc
 ```
 
-### Prerequisite for neovim's plugins ###
+### Prerequisite for neovim's plugins 
 <!-- for recursive searching with unite -->
 ```
 sudo apt-get install silversearcher-ag
 ```
 
-### check true color support ###
+### check true color support 
 ```
 curl -s https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh | bash
 ```
@@ -71,13 +71,13 @@ awk 'BEGIN{
 }'
 ```
 
-### .tmux.conf ###
+### .tmux.conf 
 truecolor in tmux
 ```
 set -sa terminal-overrides ",*256col*:Tc"
 ```
 
-### Install Powerline fonts ###
+### Install Powerline fonts 
 ```
 # clone
 git clone https://github.com/powerline/fonts.git --depth=1
@@ -93,25 +93,25 @@ rm -rf fonts
 (UI Font: Roboto )
 
 ## Powerline ##
-### Install Powerline ###
+### Install Powerline 
 NOTE: need to add $HOME/.local/bin to $PATH so that pip can install executable into that folder
 ```
 sudo apt-get install python3-pip
 pip3 install powerline-status
 ```
-### for zsh (I use agnoster though) ###
+### for zsh (I use agnoster though) 
 Paste this at the end of `.zshrc`
 ```
 source /home/khoa/.local/lib/python3.6/site-packages/powerline/bindings/zsh/powerline.zsh
 ```
-### for tmux ###
+### for tmux 
 Paste this to `.tmux.conf`
 ```
 run-shell "powerline-daemon -q"
 source "$HOME/.local/lib/python3.6/site-packages/powerline/bindings/tmux/powerline.conf"
 ```
 
-### Ubuntu Software ###
+### Ubuntu Software 
 Install Suspend Button
 Install GNOME Tweaks
 <!-- Install Dash to Panel -->
@@ -121,7 +121,7 @@ Install Hide Activities Button
 Install Custom Corner
 <!-- Install No Title Bar -->
 
-### Move Titlebar buttons to Left (GNOME Tweak >> Windows >> Titlebar Buttons)###
+### Move Titlebar buttons to Left (GNOME Tweak >> Windows >> Titlebar Buttons)
 
 ## themes ##
 ```
@@ -130,7 +130,7 @@ mkdir ~/.themes/
 Download themes, paste to `~/.themes/`
 Download icon pack, paste to `~/.icons/`
 
-### Hide Terminal's menu bar ###
+### Hide Terminal's menu bar 
 Right clich anywhere in the terminal -> Show Menubar
 ### numix
 ```
@@ -149,14 +149,14 @@ https://www.gnome-look.org/p/1241688/
 https://www.gnome-look.org/p/1102582/
 
 
-### Fix dashed line GTK3 ###
+### Fix dashed line GTK3 
 paste this line to  `~/.config/gtk-3.0/gtk.css` (Create the file if not found)
 ```
 undershoot.top, undershoot.right, undershoot.bottom, undershoot.left { background-image: none; }
 ```
 then restart
 
-### TODO: latex ###
+### TODO: latex 
 if require xelatex or luatex
 create this file in the working folder
 .latexmkrc
@@ -225,7 +225,7 @@ cmake ..
 make
 sudo make install
 ```
-### Install SublimeText ###
+### Install SublimeText 
 ```
 sudo dpkg -i sublime-text_build-3126_amd64.deb
 sudo apt-get -f install
@@ -238,11 +238,11 @@ Enable VI mode: Preference > Settings. Add this to User's settings:
     "update_check": false
 ```
 
-### gnome-mpv, youtube-dl ###
+### gnome-mpv, youtube-dl 
 sudo apt-get install gnome-mpv
 pip3 install --upgrade youtube-dl
 
-### OPTIONAL: RVM -> Ruby ###
+### OPTIONAL: RVM -> Ruby 
 https://github.com/rvm/ubuntu_rvm
 ```
 sudo apt-get install software-properties-common
@@ -258,9 +258,9 @@ rvm install ruby
 rvm --default use ruby
 ```
 
-### TODO: move changes to $PATH from .zshrc to .profile ###
+### TODO: move changes to $PATH from .zshrc to .profile 
 
-### psensors ###
+### psensors 
 ```
 sudo apt-get install lm-sensors hddtemp
 sudo sensors-detect # yes to everything, it's fine I guess
@@ -269,7 +269,7 @@ sudo apt-get install psensor
 ```
 
 ## NOTE ##
-### [Vim's Plugin] YouCompleteMe ###
+### [Vim's Plugin] YouCompleteMe 
 Without a "-std=<something>" flag, clang won't know which
 language to use when compiling headers. So it will guess. Badly. So C++
 headers will be compiled as C headers. You don't want that so ALWAYS specify
@@ -287,7 +287,7 @@ sudo apt-get install clang
 create a .ycm_extra_conf file at this location
 `~/.vim/.ycm_extra_conf.py`
 
-### [Vim's Plugin] syntastic ###
+### [Vim's Plugin] syntastic 
 python3 -m pip install flake8
 
 configure flake8: create file `~/.config/flake8`
@@ -300,7 +300,7 @@ max-line-length = 80
 ```
 E501: line too long
 
-### numpy for python3 ###
+### numpy for python3 
 pip3 install numpy
 
 if there is problem (YouCompleteMe does not work w/ numpy)
@@ -310,7 +310,7 @@ export PYTHONPATH=$HOME/.local/lib/python3.6/site-packages
 Then do `:PlugInstall!` inside nvim,
 Then restart the machine.
 
-### Use pip3 to install tensorflow -> keras ###
+### Use pip3 to install tensorflow -> keras 
 
 ### neofetch (view system information)
 sudo apt-get install neofetch
@@ -320,7 +320,7 @@ sudo apt-get install neofetch
 ### neovim terminal
 https://github.com/kassio/neoterm/issues/156
 
-### dock appear on lock screen, 2 docks on dash screen ###
+### dock appear on lock screen, 2 docks on dash screen 
 `https://github.com/micheleg/dash-to-dock/issues/726`
 temporary fix:
 A temporary fix is to restart gnome-shell with alt+f2 then r and enter.
@@ -333,7 +333,7 @@ cd /usr/share/gnome-shell/extensions/ubuntu-dock@ubuntu.com
 sudo mv metadata.json metadata1.json
 ```
 
-### FIXED: skype icon does not follow themes ###
+### FIXED: skype icon does not follow themes 
 look for `/var/lib/snapd/desktop/applications/skype_skypeforlinux.desktop`
 Change this line
 ```
@@ -345,11 +345,11 @@ Icon=skypeforlinux
 ```
 Of course you first need a file named skypeforlinux.svg (or png) in your icon theme
 
-### FIXED: skype still appears in dash search after uninstallation ###
+### FIXED: skype still appears in dash search after uninstallation 
 remove `/var/lib/snapd/desktop/applications/skype_skypeforlinux.desktop`
 
 
-### FIXED: bad splash screen after removing desktop environmen (GNOME .etc) / Reset Plymouth###
+### FIXED: bad splash screen after removing desktop environmen (GNOME .etc) / Reset Plymouth
 ```
 sudo subl -H /etc/default/grub
 ```
@@ -369,7 +369,7 @@ Save file and type in terminal
  sudo update-grub
 ```
 
-### FIXED: remove desktop environment (GNOME in this case)###
+### FIXED: remove desktop environment (GNOME in this case)
 First, select a Desktop environment other than GNOME. Then,
 ```
 sudo apt-get purge gnome-session
@@ -378,7 +378,7 @@ sudo apt-get autoremove
 ```
 then make sure ubuntu session and gdm3 are still installed
 
-### FIXED: change ls color ###
+### FIXED: change ls color 
 https://askubuntu.com/questions/17299/what-do-the-different-colors-mean-in-ls
 https://askubuntu.com/questions/466198/how-do-i-change-the-color-for-directories-with-ls-in-the-console
 <!-- Solution -->
