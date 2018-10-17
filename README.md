@@ -9,7 +9,9 @@ sudo apt-get install python-dev python3-dev #for YouCompleteMe
 ```
 sudo apt-get install zsh
 chsh -s $(which zsh)
-//logout
+```
+Logout here, then
+```
 echo $SHELL //expect /usr/bin/zsh
 sudo apt-get install curl git
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
