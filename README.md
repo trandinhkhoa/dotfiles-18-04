@@ -30,6 +30,12 @@ cd hyper-snazzy-gnome-terminal
 chmod +x hyper-snazzy.sh && ./hyper-snazzy.sh
 ```
 
+### install color theme for terminal
+https://github.com/Mayccoll/Gogh
+```
+$  bash -c  "$(wget -qO- https://git.io/vQgMr)"
+```
+
 ### Switch Capslock <-> Esc 
 Install dconf-tools. Go to
 `dconf-tools` >> `org` >> `gnome` >> `desktop` >> `input-sources`
@@ -395,9 +401,10 @@ Paste this to .zshrc
 LS_COLORS=$LS_COLORS:'ow=0;35:' ; export LS_COLORS
 ```
 
-### TODO: backup:
+### TODO: backup 
 - /home/khoa/.themes/McOS-Light-Shell/gnome-shell/gnome-shell.css
     McOS-Dark-Shell
+<!-- lockscreen setup -->
 <!-- picture file name must not have space -->
 - ~/Downloads/stwaskpass
 
@@ -413,4 +420,24 @@ sudo systemctl status  bluetooth.service
 enable again
 ```
 sudo systemctl enable bluetooth.service
+```
+
+### Install Signal messenger
+curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key ad
+d -
+ echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+ sudo apt update && sudo apt install signal-desktop
+ /opt/Signal/signal-desktop --import
+
+### TODO: re download Meslo font
+
+### install xdotool
+```
+sudo apt-get install xdotool
+```
+put this in Customcorner extension
+```
+xdotool set_desktop --relative -- -1 
+xdotool set_desktop --relative 1 
 ```

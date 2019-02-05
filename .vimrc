@@ -130,8 +130,13 @@ nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll   ,20 ,2)<CR>
 " nnoremap <silent> <C-b> :call smooth_scroll#up(&scroll*2   ,20 ,2)<CR>
 " nnoremap <silent> <C-f> :call smooth_scroll#down(&scroll*2 ,20 ,2)<CR>
 
-"*** [Plugin] ***
+" "*** [Plugin] ***
 Plug 'oblitum/rainbow' "help you read complex code by showing diff level of parentheses in diff colo
+" slow down in large file
+let g:rainbow_active = 0
+" " let g:rainbow_guifgs = ['lightblue', 'lightgreen', 'yellow', '#fc6abb', 'magenta']
+" " let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+" " let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
 "*** [Plugin] ***
 Plug 'Raimondi/delimitMate' "auto close brackets
@@ -161,7 +166,7 @@ let g:formatters_java = ['my_custom_java']
 Plug 'LaTeX-Box-Team/LaTeX-Box'
 let g:LatexBox_quickfix=2
 
-"*** [Plugin] ***
+" *** [Plugin] ***
 Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py --clang-completer' }
 " --clang-completer flag is for C-family languages support
 " For more information about compliling with semantic support for other
@@ -192,6 +197,8 @@ let g:ycm_filetype_blacklist = {
       \ 'mail' : 1
       \}
 " let g:ycm_add_preview_to_completeopt = 1
+" " enable/disable 0/1
+" let g:loaded_youcompleteme = 0
 
 Plug 'vim-syntastic/syntastic'
 set statusline+=%#warningmsg#
@@ -199,14 +206,14 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_mode_map = {
     \ "mode": "active",
     \ "passive_filetypes": ["tex"] }
 
-"*** [Plugin] ***
+" *** [Plugin] ***
 Plug 'godlygeek/tabular' " :Tabularize /<pattern>
 " align the cheat section
 " use T mark for Temp
@@ -289,7 +296,7 @@ let g:vimfiler_ignore_pattern = ['^\.','\.pyc$', '\.png$','\.class$','\.swp','\.
 Plug 'ap/vim-css-color' "css color highlight
 
 "*** [Plugin] ***
-Plug 'justinmk/vim-syntax-extra' "highlight pointer, brackets...
+" Plug 'justinmk/vim-syntax-extra' "highlight pointer, brackets...
 
 "*** [Plugin] ***
 Plug 'klen/python-mode' "python environment
@@ -331,18 +338,25 @@ Plug 'vim-airline/vim-airline'
 "*** [Plugin] ***
 Plug 'vim-airline/vim-airline-themes'
 " let g:airline_theme='powerlineish'
+let g:airline_theme='deus'
 " let g:airline_theme='solarized'
 " let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
 
-let g:airline_theme='snazzyfied'      "https://github.com/meister/vim-snazzyfied/tree/master/autoload/airline/themes
+" let g:airline_theme='snazzyfied'      "https://github.com/meister/vim-snazzyfied/tree/master/autoload/airline/themes
 "path to themes: .vim/plugged/vim-airline/autoload/airline/themes/
 
 "*** [Plugin] ***
 Plug 'iCyMind/NeoSolarized'
 
 "*** [Plugin] ***
+Plug 'morhetz/gruvbox'
+
+"*** [Plugin] ***
 Plug 'connorholyday/vim-snazzy'
 let g:SnazzyTransparent = 1
+
+"*** [Plugin] ***
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 call plug#end()
 
@@ -352,12 +366,23 @@ call vimfiler#custom#profile('default', 'context', {
             \ })
 
 " Choose color scheme here
-" set background=dark " for solarized dark
 " colorscheme NeoSolarized
-colorscheme snazzy
+" let g:neosolarized_contrast = 'high'  
+" let g:neosolarized_visibility = 'high'  
+" set background=dark " for solarized dark
+" colorscheme snazzy
+colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'hard'  "high
+set background=dark 
+" colorscheme dracula
+"
+" transparent (put after colorscheme)
+hi Normal guibg=NONE ctermbg=NONE 
 
 " air-line
 let g:airline_powerline_fonts = 1
+" enable/disable detection of whitespace errors
+" let g:airline#extensions#whitespace#enabled = 0
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
