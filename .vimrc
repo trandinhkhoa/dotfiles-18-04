@@ -40,8 +40,6 @@ nnoremap <C-p> <C-^>
 "Cycle forward/backward between buffers
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
-"List all buffer and choose
-nnoremap <C-b> :ls<CR>:
 " search current visual selection
 vnoremap z* "tyq/"tp<cr>N
 " reselect visual block after indent
@@ -66,11 +64,21 @@ inoremap <leader>kk <Esc>:m .-2<CR>==gi
 vnoremap <leader>jj :m '>+1<CR>gv=gv
 vnoremap <leader>kk :m '<-2<CR>gv=gv
 
+"Replace all occurences of current word
+nnoremap [s :%s/\<<C-r><C-w>\>/
+
+"Tip: select multiple instance of current words and change them 
+" cgnfoo<esc>
+
 "No number terminal mode
 au TermOpen * setlocal nonumber norelativenumber
 
-"List all buffer and choose
-nnoremap <C-b> :ls<CR>:
+"[Old]List all buffer and choose
+" nnoremap <C-b> :ls<CR>:
+"[need fzf] List all buffer and choose
+nnoremap <C-b> :Buffers<CR>
+"[need fzf] List all files in dir (recursively) 
+nnoremap <C-f> :Files<CR>
 
 " disable highlight until the next search
 nnoremap <silent> <BS> :noh<CR>
@@ -93,6 +101,10 @@ set title "show title (in terminal, like in gui)
 set splitright splitbelow "avoid moving code
 set linebreak breakindent "wrap line in logical place rather than separating words. Start wrapped lines at the same indentation rather than starting from the beginning of the line
 let &showbreak='↪ ' " start wrapped line by
+
+"auto complete navigation (default is C-p C-n)
+" inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
+" inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 
 let s:cache_dir = '~/.vim/.cache'
 function! s:get_cache_dir(suffix, exact_path)
@@ -167,51 +179,51 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 let g:LatexBox_quickfix=2
 
 " *** [Plugin] ***
-Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py --clang-completer' }
-" --clang-completer flag is for C-family languages support
-" For more information about compliling with semantic support for other
-" languages, see https://valloric.github.io/YouCompleteMe/
-" For C-family languages support, read the notes OR the file ".ycm_extra_conf.py" OR "https://valloric.github.io/YouCompleteMe/#intro" (search `Provide the flags manually`)
-augroup LoadYCMInsertMode
-    autocmd!
-    autocmd InsertEnter * call plug#load('YouCompleteMe')
-                \| call youcompleteme#Enable() | autocmd! LoadYCMInsertMode
-augroup END
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_complete_in_comments = 0
-let g:ycm_key_list_select_completion=['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-k>', '<Up>']
-" You can get the filetype of the current file in Vim with :set ft?.
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1
-      \}
-" let g:ycm_add_preview_to_completeopt = 1
-" " enable/disable 0/1
+" Plug 'Valloric/YouCompleteMe', { 'on': [], 'do': './install.py --clang-completer' }
+" " --clang-completer flag is for C-family languages support
+" " For more information about compliling with semantic support for other
+" " languages, see https://valloric.github.io/YouCompleteMe/
+" " For C-family languages support, read the notes OR the file ".ycm_extra_conf.py" OR "https://valloric.github.io/YouCompleteMe/#intro" (search `Provide the flags manually`)
+" augroup LoadYCMInsertMode
+"     autocmd!
+"     autocmd InsertEnter * call plug#load('YouCompleteMe')
+"                 \| call youcompleteme#Enable() | autocmd! LoadYCMInsertMode
+" augroup END
+" " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+" " let g:ycm_python_binary_path = 'python3'
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" " let g:ycm_complete_in_comments = 0
+" let g:ycm_key_list_select_completion=['<C-j>', '<Down>']
+" let g:ycm_key_list_previous_completion=['<C-k>', '<Up>']
+" " You can get the filetype of the current file in Vim with :set ft?.
+" let g:ycm_filetype_blacklist = {
+"       \ 'tagbar' : 1,
+"       \ 'qf' : 1,
+"       \ 'notes' : 1,
+"       \ 'markdown' : 1,
+"       \ 'unite' : 1,
+"       \ 'text' : 1,
+"       \ 'vimwiki' : 1,
+"       \ 'pandoc' : 1,
+"       \ 'infolog' : 1,
+"       \ 'mail' : 1
+"       \}
+" " let g:ycm_add_preview_to_completeopt = 1
+" " " enable/disable 0/1
 " let g:loaded_youcompleteme = 0
 
-Plug 'vim-syntastic/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["tex"] }
+" Plug 'vim-syntastic/syntastic'
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+"
+" let g:syntastic_mode_map = {
+"     \ "mode": "active",
+"     \ "passive_filetypes": ["tex"] }
 
 " *** [Plugin] ***
 Plug 'godlygeek/tabular' " :Tabularize /<pattern>
@@ -245,32 +257,34 @@ let g:vim_markdown_folding_disabled=1
 "*** [Plugin] ***
 Plug 'Shougo/unite.vim'
 let g:unite_data_directory=s:get_cache_dir('unite',0)
-
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_recursive_opt=''
-    " let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C0'
-    let g:unite_source_grep_default_opts =
-                \ '-i --vimgrep --hidden --ignore ' .
-                \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-endif
-
-" grep text in current directory
-"With auto preview => sometimes slow
-" nnoremap <silent> [s :<C-u>Unite -auto-resize -auto-preview -buffer-name=search grep:.<cr>
-"W/o auto preview
-nnoremap <silent> [s :<C-u>Unite -auto-resize -buffer-name=search grep:.<cr>
-"Grep in a specific folder, the command may not appear, just continue typing after typing keyboard shortcut
-nnoremap <silent> [f :<C-u>Unite -auto-resize -buffer-name=search grep:
-" registers content
-nnoremap <silent> [r :<C-u>Unite -auto-resize -buffer-name=registers register<cr>
-" find usages of a word
-nnoremap <silent> <F2> :<C-u>Unite -auto-resize -no-quit -buffer-name=search grep:.<cr><C-r><C-w><cr>
-vnoremap <silent> <F2> "ty:<C-u>Unite -auto-resize -no-quit -buffer-name=search grep:.<cr><C-r>t<cr>
-" search all mappings
-nnoremap <silent> [m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-" reopen last unite buffer
-nnoremap <silent> [u :<C-u>UniteResume<CR>
+"
+" if executable('ag')
+"     let g:unite_source_grep_command='ag'
+"     let g:unite_source_grep_recursive_opt=''
+"     " let g:unite_source_grep_default_opts='--nocolor --nogroup -S -C0'
+"     let g:unite_source_grep_default_opts =
+"                 \ '-i --vimgrep --hidden --ignore ' .
+"                 \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+" endif
+"
+" " grep text in current directory
+" "With auto preview => sometimes slow
+" " nnoremap <silent> [s :<C-u>Unite -auto-resize -auto-preview -buffer-name=search grep:.<cr>
+" "W/o auto preview
+" nnoremap <silent> [s :<C-u>Unite -auto-resize -buffer-name=search grep:.<cr>
+" "Grep current word
+" " nnoremap <silent> [g :<C-u>Unite -auto-resize -buffer-name=search grep:.<cr><C-r><C-w><cr>
+" "Grep in a specific folder, the command may not appear, just continue typing after typing keyboard shortcut
+" nnoremap <silent> [f :<C-u>Unite -auto-resize -buffer-name=search grep:
+" " registers content
+" nnoremap <silent> [r :<C-u>Unite -auto-resize -buffer-name=registers register<cr>
+" " find usages of a word
+" nnoremap <silent> <F2> :<C-u>Unite -auto-resize -no-quit -buffer-name=search grep:.<cr><C-r><C-w><cr>
+" vnoremap <silent> <F2> "ty:<C-u>Unite -auto-resize -no-quit -buffer-name=search grep:.<cr><C-r>t<cr>
+" " search all mappings
+" nnoremap <silent> [m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+" " reopen last unite buffer
+" nnoremap <silent> [u :<C-u>UniteResume<CR>
 
 "*** [Plugin] ***
 Plug 'Shougo/vimfiler.vim'
@@ -299,11 +313,11 @@ Plug 'ap/vim-css-color' "css color highlight
 " Plug 'justinmk/vim-syntax-extra' "highlight pointer, brackets...
 
 "*** [Plugin] ***
-Plug 'klen/python-mode' "python environment
-let g:pymode_folding = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_rope = 0
-let g:pymode_options = 0
+" Plug 'klen/python-mode' "python environment
+" let g:pymode_folding = 0
+" let g:pymode_lint_on_write = 0
+" let g:pymode_rope = 0
+" let g:pymode_options = 0
 
 "*** [Plugin] ***
 Plug 'tpope/vim-fugitive' "git interface
@@ -327,6 +341,10 @@ nmap [c <Plug>GitGutterPrevHunkzz
 nmap ]c <Plug>GitGutterNextHunkzz
 
 "*** [Plugin] ***
+Plug 'majutsushi/tagbar'
+nmap <F8> :TagbarToggle<CR>
+
+"*** [Plugin] ***
 Plug 'tpope/vim-eunuch' " :Delete :Unlink :Move :Rename :Chmod :Mkdir :Cfind :Clocate :Lfind/:Llocate :Wall :SudoWrite :SudoEdit
 
 "*** [Plugin] ***
@@ -334,6 +352,15 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'} "dependency for file_rec/async or fil
 
 "*** [Plugin] ***
 Plug 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
+
+"*** [Plugin] ***
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" search  
+nnoremap <leader>s :Ag 
+" search current word under the cursor
+nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 "*** [Plugin] ***
 Plug 'vim-airline/vim-airline-themes'
@@ -372,10 +399,11 @@ call vimfiler#custom#profile('default', 'context', {
 " set background=dark " for solarized dark
 " colorscheme snazzy
 colorscheme gruvbox
-" let g:gruvbox_contrast_dark = 'hard'  "high
+let g:gruvbox_contrast_dark = 'hard'  "high
 set background=dark 
 " colorscheme dracula
 "
+highlight SvnGutterAdd guifg=red guibg=red
 " transparent (put after colorscheme)
 hi Normal guibg=NONE ctermbg=NONE 
 
