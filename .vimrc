@@ -1,4 +1,9 @@
 set number
+set foldmethod=indent
+augroup OpenAllFoldsOnFileOpen
+    autocmd!
+    autocmd BufRead * normal zR
+augroup END
 
 let mapleader=" "
 let maplocalleader=" "
@@ -28,11 +33,11 @@ tnoremap <esc> <C-\><C-n>
 nnoremap <silent> Q :q<cr>
 
 " truecolor for neovim
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
-endif
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
 
 "Buffer switching
 "switch to previous buffer
@@ -145,10 +150,30 @@ nnoremap <silent> <C-d> :call smooth_scroll#down(&scroll   ,20 ,2)<CR>
 " "*** [Plugin] ***
 Plug 'oblitum/rainbow' "help you read complex code by showing diff level of parentheses in diff colo
 " slow down in large file
+" enable with :RainbowToggle
 let g:rainbow_active = 0
-" " let g:rainbow_guifgs = ['lightblue', 'lightgreen', 'yellow', '#fc6abb', 'magenta']
-" " let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-" " let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
+let g:rainbow_conf = {
+\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\	'operators': '_,_',
+\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\	'separately': {
+\		'*': {},
+\		'tex': {
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\		},
+\		'lisp': {
+\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\		},
+\		'vim': {
+\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\		},
+\		'html': {
+\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\		},
+\		'css': 0,
+\	}
+\}
 
 "*** [Plugin] ***
 Plug 'Raimondi/delimitMate' "auto close brackets
@@ -363,17 +388,18 @@ nnoremap <leader>s :Ag
 nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 "*** [Plugin] ***
+Plug 'google/vim-searchindex'
+
+"*** [Plugin] ***
 Plug 'vim-airline/vim-airline-themes'
 " let g:airline_theme='powerlineish'
 let g:airline_theme='deus'
+"let g:airline_theme='monokai-tasty'
 " let g:airline_theme='solarized'
 " let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
 
 " let g:airline_theme='snazzyfied'      "https://github.com/meister/vim-snazzyfied/tree/master/autoload/airline/themes
 "path to themes: .vim/plugged/vim-airline/autoload/airline/themes/
-
-"*** [Plugin] ***
-Plug 'iCyMind/NeoSolarized'
 
 "*** [Plugin] ***
 Plug 'morhetz/gruvbox'
@@ -384,6 +410,24 @@ let g:SnazzyTransparent = 1
 
 "*** [Plugin] ***
 Plug 'dracula/vim', { 'as': 'dracula' }
+"
+" "*** [Plugin] ***
+" Plug 'sickill/vim-monokai'
+"
+"*** [Plugin] ***
+Plug 'crusoexia/vim-monokai'
+
+" *** [Plugin] ***
+Plug 'lifepillar/vim-solarized8'
+
+"*** [Plugin] ***
+Plug 'romainl/flattened'
+"
+"*** [Plugin] ***
+Plug 'patstockwell/vim-monokai-tasty'
+"
+"*** [Plugin] ***
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -393,14 +437,22 @@ call vimfiler#custom#profile('default', 'context', {
             \ })
 
 " Choose color scheme here
-" colorscheme NeoSolarized
-" let g:neosolarized_contrast = 'high'  
-" let g:neosolarized_visibility = 'high'  
+" colorscheme solarized8_high
 " set background=dark " for solarized dark
+
+colorscheme flattened_dark
+colorscheme flattened_light
+
 " colorscheme snazzy
+
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = 'hard'  "high
 set background=dark 
+
+" colorscheme monokai
+" let g:vim_monokai_tasty_italic = 1
+" colorscheme vim-monokai-tasty
+
 " colorscheme dracula
 "
 highlight SvnGutterAdd guifg=red guibg=red
