@@ -23,6 +23,9 @@ set splitright "open file in right split
 noremap ,p "0p
 noremap ,P "0P
 
+" copy path of current file
+map cp :let  @+ = expand("%:p")<cr>
+
 "insert empty line
 nnoremap <C-o> O<Esc>
 
@@ -32,12 +35,14 @@ tnoremap <esc> <C-\><C-n>
 "Q to quit
 nnoremap <silent> Q :q<cr>
 
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
 " truecolor for neovim
-" if exists('+termguicolors')
-"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"   set termguicolors
-" endif
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 "Buffer switching
 "switch to previous buffer
@@ -57,10 +62,11 @@ inoremap <C-l> <right>
 tnoremap <C-h> <left>
 tnoremap <C-l> <right>
 "split navigations
-nnoremap <C-j> <C-w><Down>
-nnoremap <C-k> <C-w><Up>
-nnoremap <C-l> <C-w><Right>
-nnoremap <C-h> <C-w><Left>
+"https://github.com/christoomey/vim-tmux-navigator/issues/103
+" nnoremap <C-j> <C-w><Down>
+" nnoremap <C-k> <C-w><Up>
+" nnoremap <C-l> <C-w><Right>
+" nnoremap <C-h> <C-w><Left>
 "move line up or down
 nnoremap <leader>jj :m .+1<CR>==
 nnoremap <leader>kk :m .-2<CR>==
@@ -313,7 +319,7 @@ let g:unite_data_directory=s:get_cache_dir('unite',0)
 
 "*** [Plugin] ***
 Plug 'Shougo/vimfiler.vim'
-nnoremap <silent> <F1> :VimFilerCurrentDir -status -split -simple -winwidth=35 -toggle -no-quit <cr>
+nnoremap <silent> <F1> :VimFilerCurrentDir -status -split -simple -winwidth=50 -toggle -no-quit <cr>
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_tree_leaf_icon=''
 let g:vimfiler_tree_closed_icon='▸'
@@ -321,6 +327,8 @@ let g:vimfiler_tree_opened_icon='▾'
 let g:vimfiler_expand_jump_to_first_child=0
 highlight def link vimfilerOpenedFile Identifier
 highlight def link vimfilerClosedFile Identifier
+nmap <buffer> <2-LeftMouse> <Plug>(vimfiler_edit_file)
+autocmd FileType vimfiler nmap <silent><buffer> <2-LeftMouse> <Plug>(vimfiler_expand_or_edit)
 
 "Open file in split
 autocmd FileType vimfiler nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('vsplit')
@@ -393,8 +401,7 @@ Plug 'google/vim-searchindex'
 "*** [Plugin] ***
 Plug 'vim-airline/vim-airline-themes'
 " let g:airline_theme='powerlineish'
-let g:airline_theme='deus'
-"let g:airline_theme='monokai-tasty'
+" let g:airline_theme='deus'
 " let g:airline_theme='solarized'
 " let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
 
@@ -429,6 +436,9 @@ Plug 'patstockwell/vim-monokai-tasty'
 "*** [Plugin] ***
 Plug 'christoomey/vim-tmux-navigator'
 
+"*** [Plugin] ***
+Plug 'will133/vim-dirdiff'
+
 call plug#end()
 
 " turn off vim filer safe mode by default
@@ -438,16 +448,18 @@ call vimfiler#custom#profile('default', 'context', {
 
 " Choose color scheme here
 " colorscheme solarized8_high
+" colorscheme solarized8_light
 " set background=dark " for solarized dark
 
-colorscheme flattened_dark
-colorscheme flattened_light
+" colorscheme flattened_dark
+" colorscheme flattened_light
+colorscheme google16
 
 " colorscheme snazzy
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'  "high
-set background=dark 
+" colorscheme gruvbox
+" let g:gruvbox_contrast_dark = 'hard'  "high
+" set background=dark 
 
 " colorscheme monokai
 " let g:vim_monokai_tasty_italic = 1
