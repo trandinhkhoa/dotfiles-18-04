@@ -397,47 +397,35 @@ nnoremap <silent> <leader>ag :Ag <C-R><C-W><CR>
 
 "*** [Plugin] ***
 Plug 'google/vim-searchindex'
-
-"*** [Plugin] ***
-Plug 'vim-airline/vim-airline-themes'
-" let g:airline_theme='powerlineish'
-" let g:airline_theme='deus'
-" let g:airline_theme='solarized'
-" let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
-
-" let g:airline_theme='snazzyfied'      "https://github.com/meister/vim-snazzyfied/tree/master/autoload/airline/themes
-"path to themes: .vim/plugged/vim-airline/autoload/airline/themes/
-
-"*** [Plugin] ***
-Plug 'morhetz/gruvbox'
-
-"*** [Plugin] ***
-Plug 'connorholyday/vim-snazzy'
-let g:SnazzyTransparent = 1
-
-"*** [Plugin] ***
-Plug 'dracula/vim', { 'as': 'dracula' }
-"
-" "*** [Plugin] ***
-" Plug 'sickill/vim-monokai'
-"
-"*** [Plugin] ***
-Plug 'crusoexia/vim-monokai'
-
-" *** [Plugin] ***
-Plug 'lifepillar/vim-solarized8'
-
-"*** [Plugin] ***
-Plug 'romainl/flattened'
-"
-"*** [Plugin] ***
-Plug 'patstockwell/vim-monokai-tasty'
 "
 "*** [Plugin] ***
 Plug 'christoomey/vim-tmux-navigator'
 
 "*** [Plugin] ***
 Plug 'will133/vim-dirdiff'
+
+"*** [Plugin] ***
+Plug 'vim-airline/vim-airline-themes'
+" let g:airline_theme='powerlineish'
+let g:airline_theme='deus'
+" let g:airline_theme='solarized'
+" let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
+"path to themes: .vim/plugged/vim-airline/autoload/airline/themes/
+
+"*** [Plugin] ***
+Plug 'morhetz/gruvbox'
+
+"*** [Plugin] ***
+Plug 'dracula/vim', { 'as': 'dracula' }
+"
+"*** [Plugin] ***
+Plug 'crusoexia/vim-monokai'
+
+" *** [Plugin] ***
+Plug 'lifepillar/vim-solarized8'
+"
+"*** [Plugin] ***
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -447,26 +435,9 @@ call vimfiler#custom#profile('default', 'context', {
             \ })
 
 " Choose color scheme here
-" colorscheme solarized8_high
-" colorscheme solarized8_light
+colorscheme solarized8_high
 " set background=dark " for solarized dark
 
-" colorscheme flattened_dark
-" colorscheme flattened_light
-colorscheme google16
-
-" colorscheme snazzy
-
-" colorscheme gruvbox
-" let g:gruvbox_contrast_dark = 'hard'  "high
-" set background=dark 
-
-" colorscheme monokai
-" let g:vim_monokai_tasty_italic = 1
-" colorscheme vim-monokai-tasty
-
-" colorscheme dracula
-"
 highlight SvnGutterAdd guifg=red guibg=red
 " transparent (put after colorscheme)
 hi Normal guibg=NONE ctermbg=NONE 
