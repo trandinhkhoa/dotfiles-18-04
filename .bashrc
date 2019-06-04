@@ -131,6 +131,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# https://github.com/junegunn/fzf/wiki/Color-schemes
 _gen_fzf_default_opts() {
   local base03="234"
   local base02="235"
