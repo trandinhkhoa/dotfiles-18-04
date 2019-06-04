@@ -1,9 +1,11 @@
 set number
+set noincsearch
 set foldmethod=indent
 augroup OpenAllFoldsOnFileOpen
     autocmd!
     autocmd BufRead * normal zR
 augroup END
+
 
 let mapleader=" "
 let maplocalleader=" "
@@ -38,12 +40,14 @@ nnoremap <silent> Q :q<cr>
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 " truecolor for neovim
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" if exists('+termguicolors')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"   set termguicolors
+" endif
+if has('nvim') || has('termguicolors')
   set termguicolors
 endif
-
 "Buffer switching
 "switch to previous buffer
 nnoremap <C-p> <C-^>
@@ -319,7 +323,7 @@ let g:unite_data_directory=s:get_cache_dir('unite',0)
 
 "*** [Plugin] ***
 Plug 'Shougo/vimfiler.vim'
-nnoremap <silent> <F1> :VimFilerCurrentDir -status -split -simple -winwidth=50 -toggle -no-quit <cr>
+nnoremap <silent> <F1> :VimFilerCurrentDir -status -split -simple -winwidth=40 -toggle -no-quit <cr>
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_tree_leaf_icon=''
 let g:vimfiler_tree_closed_icon='▸'
@@ -407,7 +411,7 @@ Plug 'will133/vim-dirdiff'
 "*** [Plugin] ***
 Plug 'vim-airline/vim-airline-themes'
 " let g:airline_theme='powerlineish'
-let g:airline_theme='deus'
+" let g:airline_theme='deus'
 " let g:airline_theme='solarized'
 " let g:airline_solarized_bg='dark'   " for solarized dark: select 'solarized' then uncomment this
 "path to themes: .vim/plugged/vim-airline/autoload/airline/themes/
@@ -426,6 +430,9 @@ Plug 'lifepillar/vim-solarized8'
 "
 "*** [Plugin] ***
 Plug 'chriskempson/base16-vim'
+"
+" "*** [Plugin] ***
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 
 call plug#end()
 
@@ -435,12 +442,17 @@ call vimfiler#custom#profile('default', 'context', {
             \ })
 
 " Choose color scheme here
-colorscheme solarized8_high
-" set background=dark " for solarized dark
+set background=light " for solarized dark
+" colorscheme  challenger_deep
+" colorscheme base16-google-light
+" colorscheme base16-google-dark
+colorscheme solarized8
+
+highlight Comment cterm=italic gui=italic
 
 highlight SvnGutterAdd guifg=red guibg=red
 " transparent (put after colorscheme)
-hi Normal guibg=NONE ctermbg=NONE 
+" hi Normal guibg=NONE ctermbg=NONE 
 
 " air-line
 let g:airline_powerline_fonts = 1
