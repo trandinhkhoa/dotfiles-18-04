@@ -1,3 +1,4 @@
+set nomodeline
 set number
 set noincsearch
 set foldmethod=indent
@@ -442,11 +443,13 @@ call vimfiler#custom#profile('default', 'context', {
             \ })
 
 " Choose color scheme here
-set background=light " for solarized dark
-" colorscheme  challenger_deep
+" set background=light " for solarized dark
+colorscheme  challenger_deep
 " colorscheme base16-google-light
 " colorscheme base16-google-dark
-colorscheme solarized8
+" colorscheme solarized8_high
+" let g:gruvbox_contrast_light='medium'    " soft/medium/hard
+" colorscheme gruvbox
 
 highlight Comment cterm=italic gui=italic
 
@@ -486,6 +489,42 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
+if has('nvim')
+  " set winblend=20
+  function! s:create_float(hl, opts)
+    let buf = nvim_create_buf(v:false, v:true)
+    let opts = extend({'relative': 'editor', 'style': 'minimal'}, a:opts)
+    let win = nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&winhighlight', 'NormalFloat:'.a:hl)
+    call setwinvar(win, '&colorcolumn', '')
+    return buf
+  endfunction
+
+  function! FloatingFZF()
+    " Size and position
+    let width = float2nr(&columns * 0.9)
+    let height = float2nr(&lines * 0.6)
+    let row = float2nr((&lines - height) / 2)
+    let col = float2nr((&columns - width) / 2)
+
+    " Border
+    let top = '╭' . repeat('─', width - 2) . '╮'
+    let mid = '│' . repeat(' ', width - 2) . '│'
+    let bot = '╰' . repeat('─', width - 2) . '╯'
+    let border = [top] + repeat([mid], height - 2) + [bot]
+
+    " Draw frame
+    let s:frame = s:create_float('Comment', {'row': row, 'col': col, 'width': width, 'height': height})
+    call nvim_buf_set_lines(s:frame, 0, -1, v:true, border)
+
+    " Draw viewport
+    call s:create_float('Normal', {'row': row + 1, 'col': col + 2, 'width': width - 4, 'height': height - 2})
+    autocmd BufWipeout <buffer> execute 'bwipeout' s:frame
+  endfunction
+
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
+"
 " CHEAT
 " Key binding                                       | Meaning
 "-------------------------------------------------- | ---------------------------------------
